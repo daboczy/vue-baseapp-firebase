@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /user/{userID}/meetings/{document=**} {
+    	allow read;
+      allow write: if request.auth.uid != null;
+    }
+    match /user/{userID}/meetings/{meetingID}/attendees/{document=**} {
+    	allow read;
+      allow write;
+    }
+  }
+}
